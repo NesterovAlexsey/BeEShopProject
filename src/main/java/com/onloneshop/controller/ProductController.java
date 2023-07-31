@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Product operation:
+ * -find all products;
+ * -find product by id;
+ * -find position by part of name;
+ */
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -27,7 +34,7 @@ public class ProductController {
         return productService.findById(id);
     }
 
-    @GetMapping("/{categoryId}")
+    @GetMapping("/category/{categoryId}")
     public List<Product> findByCategory(@PathVariable Integer categoryId) {
         return productService.findByCategoryId(categoryId);
     }

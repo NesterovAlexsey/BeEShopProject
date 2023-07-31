@@ -1,16 +1,17 @@
 package com.onloneshop.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+@Entity (name = "suppliers")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Suppliers {
+public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +20,7 @@ public class Suppliers {
     private String supplierName;
     private String address;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Countries.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Country.class)
     @JoinColumn(name = "countryId", nullable = false)
-    private Countries country;
+    private Country country;
 }

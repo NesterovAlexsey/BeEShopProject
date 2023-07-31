@@ -1,5 +1,6 @@
 package com.onloneshop.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,13 +17,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Categories.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class)
     @JoinColumn(name = "categoryId", nullable = false)
-    private Categories category;
+    private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Suppliers.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Supplier.class)
     @JoinColumn(name = "supplierId", nullable = false)
-    private Suppliers supplier;
+    private Supplier supplier;
 
     private String productName;
     private String description;
