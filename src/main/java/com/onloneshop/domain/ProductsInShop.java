@@ -10,15 +10,15 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrderDetails {
+public class ProductsInShop {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer orderDetailId;
+    private Integer productInShopId;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Orders.class)
-    @JoinColumn(name = "orderId", nullable = false)
-    private Orders order;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Shops.class)
+    @JoinColumn(name = "shopId", nullable = false)
+    private Shops shop;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Product.class)
     @JoinColumn(name = "productId", nullable = false)

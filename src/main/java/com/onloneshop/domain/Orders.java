@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 @Entity
 @Getter
@@ -21,6 +21,6 @@ public class Orders {
     @JoinColumn(name = "customerId", nullable = false)
     private Customers customer;
 
-    private Date orderDate;
+    private OffsetDateTime orderDate;
     private OrderState state;
 }
