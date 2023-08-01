@@ -12,4 +12,6 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM products p WHERE p.category.categoryId = :categoryId")
     List<Product> findByCategoryId(@Param("categoryId") Integer categoryId);
+
+    List<Product> findByProductNameLikeIgnoreCase(String likePattern);
 }

@@ -33,4 +33,9 @@ public class ProductService {
         List<Product> products = productRepository.findByCategoryId(categoryId);
         return ProductsDTO.getInstance(products);
     }
+
+    public ProductsDTO findByPartName(String partName) {
+        List<Product> products = productRepository.findByProductNameLikeIgnoreCase('%' + partName + '%');
+        return ProductsDTO.getInstance(products);
+    }
 }
