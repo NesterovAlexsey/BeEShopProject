@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
  * - create order with order
  * - added product to the order
  * - delete product from orders
- *
  */
 @RestController
 public class OrderController {

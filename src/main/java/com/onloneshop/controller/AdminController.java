@@ -1,13 +1,30 @@
 package com.onloneshop.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.onloneshop.controller.dto.CountryDTO;
+import com.onloneshop.service.CountryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Administration of db records
- * -add new product;
- * -marking position for delete;
- * redaction country
+ * Control product saves
  */
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
+
+    @Autowired
+    private CountryService countryService;
+
+    @GetMapping("country/all")
+    private List<CountryDTO> findAll(){
+        return countryService.findAll();
+    }
+
+    @PostMapping("/country/add")
+    public CountryDTO addCountry(@RequestBody CountryDTO country) {
+        return countryService.add(country);
+    }
 }
