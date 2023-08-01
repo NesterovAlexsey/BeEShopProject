@@ -20,7 +20,7 @@ public class Supplier {
     private String supplierName;
     private String address;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Country.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Country.class)
     @JoinColumn(name = "countryId", nullable = false)
     private Country country;
 }

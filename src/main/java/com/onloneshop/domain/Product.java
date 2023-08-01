@@ -17,11 +17,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class)
     @JoinColumn(name = "categoryId", nullable = false)
     private Category category;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Supplier.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Supplier.class)
     @JoinColumn(name = "supplierId", nullable = false)
     private Supplier supplier;
 

@@ -1,5 +1,7 @@
 package com.onloneshop.controller;
 
+import com.onloneshop.controller.dto.ProductDTO;
+import com.onloneshop.controller.dto.ProductsDTO;
 import com.onloneshop.domain.Product;
 import com.onloneshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +27,17 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping()
-    public List<Product> findAll() {
+    public ProductsDTO findAll() {
         return productService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Product findById(@PathVariable Integer id) {
+    public ProductDTO findById(@PathVariable Integer id) {
         return productService.findById(id);
     }
 
     @GetMapping("/category/{categoryId}")
-    public List<Product> findByCategory(@PathVariable Integer categoryId) {
+    public ProductsDTO findByCategory(@PathVariable Integer categoryId) {
         return productService.findByCategoryId(categoryId);
     }
 }

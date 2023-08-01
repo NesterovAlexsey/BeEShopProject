@@ -20,7 +20,7 @@ public class Customer {
     private String customerName;
     private String address;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Country.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Country.class)
     @JoinColumn(name = "countryId", nullable = false)
     private Country country;
 }

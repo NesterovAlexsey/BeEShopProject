@@ -17,11 +17,11 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderDetailId;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Order.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Order.class)
     @JoinColumn(name = "orderId", nullable = false)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Product.class)
     @JoinColumn(name = "productId", nullable = false)
     private Product product;
 
