@@ -1,6 +1,6 @@
-supplier_id,supplier_name,address,country_id
-1,Ford,Ford Factory,1
-2,Mercedes,Stuttgart,2
-3,Peugeot,Paris,3
-4,Skoda,Praga,4
-5,Toyota,Toyota City,5
+supplier_name,address,country_id
+Ford,Ford Factory,1
+Mercedes,Stuttgart,2
+Peugeot,Paris,3
+Skoda,Praga,4
+Toyota,Toyota City,5

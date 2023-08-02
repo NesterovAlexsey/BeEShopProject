@@ -1,2 +1,2 @@
-customer_id,customer_name,address,country_id
-1,Test Client,Nowhere,2
+customer_name,address,country_id
+Test Client,Nowhere,2
