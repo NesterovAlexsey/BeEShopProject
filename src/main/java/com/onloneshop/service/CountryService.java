@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CountryService {
@@ -26,5 +27,26 @@ public class CountryService {
         List<CountryDTO> result = new ArrayList<>();
         countries.forEach(country -> result.add(CountryDTO.getInstance(country)));
         return result;
+    }
+
+    public CountryDTO update(Integer id, CountryDTO countryDTO) {
+        Optional<Country> country = countryRepository.findById(id);
+        if (country.isPresent()) {
+            Country updCountry = country.get();
+            updCountry.setCountryName(countryDTO.getCountryName());
+            updCountry = countryRepository.save(updCountry);
+            return CountryDTO.getInstance(updCountry);
+        }
+        return null;
+    }
+
+    public CountryDTO delete(Integer id) {
+        Optional<Country> country = countryRepository.findById(id);
+        if (country.isPresent()) {
+            Country delCountry = country.get();
+            countryRepository.delete(delCountry);
+            return CountryDTO.getInstance(delCountry);
+        }
+        return null;
     }
 }
