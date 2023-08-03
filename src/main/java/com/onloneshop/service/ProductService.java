@@ -1,6 +1,5 @@
 package com.onloneshop.service;
 
-import com.onloneshop.controller.dto.CountryDTO;
 import com.onloneshop.controller.dto.ProductDTO;
 import com.onloneshop.controller.dto.ProductsDTO;
 import com.onloneshop.domain.Category;
@@ -10,6 +9,9 @@ import com.onloneshop.domain.Supplier;
 import com.onloneshop.repository.CategoryRepository;
 import com.onloneshop.repository.ProductRepository;
 import com.onloneshop.repository.SupplierRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class ProductService {
 
     @Autowired
@@ -57,6 +60,42 @@ public class ProductService {
         Integer categoryId = productDTO.getCategory().getCategoryId();
         Optional<Category> optCategory = categoryRepository.findById(categoryId);
         if (!optCategory.isPresent()) {
+            log.error("Not found category categoryId: {}", categoryId);
+            return null;
+        }
+        product.setCategory(optCategory.get());
+
+        //find supplies
+        Integer supplierId = productDTO.getSupplier().getSupplierId();
+        Optional<Supplier> optSupplier = supplierRepository.findById(supplierId);
+        if (!optSupplier.isPresent()) {
+            log.error("Not found supplier supplierId: {}", supplierId);
+            return null;
+        }
+        product.setSupplier(optSupplier.get());
+
+        //add other field
+        product.setProductName(productDTO.getProductName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setIsDeleted(false);
+
+        product = productRepository.save(product);
+        log.info("Product added successfuly productId: {}", product.getProductId());
+        return ProductDTO.getInstance(product);
+    }
+
+    public ProductDTO update(Integer id, ProductDTO productDTO) {
+        Optional<Product> optProduct = productRepository.findById(id);
+        if (!optProduct.isPresent()) {
+            return null;
+        }
+        Product product = optProduct.get();
+
+        //find and add category
+        Integer categoryId = productDTO.getCategory().getCategoryId();
+        Optional<Category> optCategory = categoryRepository.findById(categoryId);
+        if (!optCategory.isPresent()) {
             return null;
         }
         product.setCategory(optCategory.get());
@@ -73,14 +112,10 @@ public class ProductService {
         product.setProductName(productDTO.getProductName());
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
-        product.setIsDeleted(false);
+        product.setIsDeleted(productDTO.getIsDeleted());
 
         product = productRepository.save(product);
         return ProductDTO.getInstance(product);
-    }
-
-    public ProductDTO update(Integer id, ProductDTO productDTO) {
-        return null;
     }
 
     public ProductDTO delete(Integer id) {
