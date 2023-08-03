@@ -1,7 +1,9 @@
 package com.onloneshop.controller;
 
 import com.onloneshop.controller.dto.CountryDTO;
+import com.onloneshop.controller.dto.ShopDTO;
 import com.onloneshop.service.CountryService;
+import com.onloneshop.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,9 @@ public class AdminController {
 
     @Autowired
     private CountryService countryService;
+
+    @Autowired
+    private ShopService shopService;
 
     @GetMapping("country/all")
     private List<CountryDTO> findAll(){
@@ -36,5 +41,25 @@ public class AdminController {
     @DeleteMapping("country/delete/{id}")
     public CountryDTO deleteCountry(@PathVariable Integer id) {
         return  countryService.delete(id);
+    }
+
+    @GetMapping("shop/all")
+    private List<ShopDTO> findAllShops() {
+        return shopService.findAllShops();
+    }
+
+    @PostMapping("/shop/add")
+    public ShopDTO addShop(@RequestBody ShopDTO shopDTO) {
+        return shopService.addShop(shopDTO);
+    }
+
+    @PutMapping("/shop/update/{id}")
+    public ShopDTO updateShop(@RequestBody ShopDTO shopDTO, @PathVariable Integer id) {
+        return shopService.update(id, shopDTO);
+    }
+
+    @DeleteMapping("shop/delete/{id}")
+    public ShopDTO deleteShop(@PathVariable Integer id) {
+        return shopService.deleteShop(id);
     }
 }
