@@ -37,6 +37,7 @@ public class ProductService {
         if (product.isPresent()) {
             return ProductDTO.getInstance(product.get());
         }
+        log.error("Not found product with id: {}", id);
         return null;
     }
 
@@ -84,6 +85,7 @@ public class ProductService {
     public ProductDTO update(Integer id, ProductDTO productDTO) {
         Optional<Product> optProduct = productRepository.findById(id);
         if (!optProduct.isPresent()) {
+            log.error("Not found product productId: {}", id);
             return null;
         }
         Product product = optProduct.get();
@@ -92,6 +94,7 @@ public class ProductService {
         Integer categoryId = productDTO.getCategory().getCategoryId();
         Optional<Category> optCategory = categoryRepository.findById(categoryId);
         if (!optCategory.isPresent()) {
+            log.error("Not found category categoryId: {}", categoryId);
             return null;
         }
         product.setCategory(optCategory.get());
@@ -100,6 +103,7 @@ public class ProductService {
         Integer supplierId = productDTO.getSupplier().getSupplierId();
         Optional<Supplier> optSupplier = supplierRepository.findById(supplierId);
         if (!optSupplier.isPresent()) {
+            log.error("Not found supplier supplierId: {}", supplierId);
             return null;
         }
         product.setSupplier(optSupplier.get());
@@ -111,6 +115,7 @@ public class ProductService {
         product.setIsDeleted(productDTO.getIsDeleted());
 
         product = productRepository.save(product);
+        log.info("Product added successfully productId: {}", product.getProductId());
         return ProductDTO.getInstance(product);
     }
 
@@ -119,8 +124,10 @@ public class ProductService {
         if (product.isPresent()) {
             Product delProduct = product.get();
             productRepository.delete(delProduct);
+            log.info("Product delete successfully productId: {}", id);
             return ProductDTO.getInstance(delProduct);
-        }
+            }
+        log.error("Not found product with productID: {}", id);
         return null;
     }
 }
