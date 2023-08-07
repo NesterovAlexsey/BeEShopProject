@@ -3,6 +3,7 @@ package com.onloneshop.controller;
 import com.onloneshop.controller.dto.CustomerDTO;
 import com.onloneshop.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,12 +26,20 @@ public class AdminCustomerController {
     }
 
     @PutMapping("/update/{id}")
-    public CustomerDTO update(@RequestBody CustomerDTO customerDTO, @PathVariable Integer id) {
-        return customerService.update(id, customerDTO);
+    public ResponseEntity<CustomerDTO> update(@RequestBody CustomerDTO customerDTO, @PathVariable Integer id) {
+        CustomerDTO customerDTOFinal = customerService.update(id, customerDTO);
+        if (customerDTOFinal != null) {
+            return ResponseEntity.ok(customerDTOFinal);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/delete/{id}")
-    public CustomerDTO delete(@PathVariable Integer id) {
-        return customerService.delete(id);
+    public ResponseEntity<CustomerDTO> delete(@PathVariable Integer id) {
+        CustomerDTO result = customerService.delete(id);
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+            }
+        return ResponseEntity.ok(result);
     }
 }

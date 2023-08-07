@@ -4,6 +4,7 @@ import com.onloneshop.controller.dto.ProductDTO;
 import com.onloneshop.controller.dto.ProductsDTO;
 import com.onloneshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,12 +24,20 @@ public class AdminProductController {
     }
 
     @PutMapping("/update/{id}")
-    public ProductDTO update(@RequestBody ProductDTO productDTO, @PathVariable Integer id) {
-        return productService.update(id, productDTO);
+    public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO productDTO, @PathVariable Integer id) {
+        ProductDTO productResult = productService.update(id, productDTO);
+        if (productResult == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(productResult);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ProductDTO delete(@PathVariable Integer id) {
-        return productService.delete(id);
+    public ResponseEntity<ProductDTO> delete(@PathVariable Integer id) {
+        ProductDTO productDTO = productService.delete(id);
+        if (productDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(productDTO);
     }
 }
