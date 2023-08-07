@@ -3,19 +3,15 @@ package com.onloneshop.service;
 import com.onloneshop.controller.dto.ProductDTO;
 import com.onloneshop.controller.dto.ProductsDTO;
 import com.onloneshop.domain.Category;
-import com.onloneshop.domain.Country;
 import com.onloneshop.domain.Product;
 import com.onloneshop.domain.Supplier;
 import com.onloneshop.repository.CategoryRepository;
 import com.onloneshop.repository.ProductRepository;
 import com.onloneshop.repository.SupplierRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

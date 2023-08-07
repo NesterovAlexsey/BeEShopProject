@@ -3,6 +3,7 @@ package com.onloneshop.service;
 import com.onloneshop.controller.dto.CountryDTO;
 import com.onloneshop.domain.Country;
 import com.onloneshop.repository.CountryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class CountryService {
 
@@ -26,6 +28,7 @@ public class CountryService {
         List<Country> countries = countryRepository.findAll();
         List<CountryDTO> result = new ArrayList<>();
         countries.forEach(country -> result.add(CountryDTO.getInstance(country)));
+        log.info("log info");
         return result;
     }
 

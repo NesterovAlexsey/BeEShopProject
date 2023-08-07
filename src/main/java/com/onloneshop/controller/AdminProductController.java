@@ -2,7 +2,6 @@ package com.onloneshop.controller;
 
 import com.onloneshop.controller.dto.ProductDTO;
 import com.onloneshop.controller.dto.ProductsDTO;
-import com.onloneshop.controller.dto.ShopDTO;
 import com.onloneshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

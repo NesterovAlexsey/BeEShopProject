@@ -29,5 +29,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+.log
+
 ### VS Code ###
 .vscode/
+/online-shop.log
+/online-shop.log.2023-08-03.0.gz
