@@ -16,6 +16,7 @@ public class ShopService {
     @Autowired
     private ShopRepository shopRepository;
 
+    //tODO add loging
     public List<ShopDTO> findAllShops() {
         List<Shop> shops = shopRepository.findAll();
         List<ShopDTO> shopDTOList = new ArrayList<>();
@@ -23,6 +24,7 @@ public class ShopService {
         return shopDTOList;
     }
 
+    //Todo - check Shop name for same in adding
     public ShopDTO addShop(ShopDTO shopDTO) {
         Shop addShop = new Shop();
         addShop.setShopName(shopDTO.getShopName());
@@ -30,6 +32,7 @@ public class ShopService {
         return ShopDTO.getInstance(addShop);
     }
 
+    //Todo - check Shop name for same in update
     public ShopDTO update(Integer id, ShopDTO shopDTO) {
         Optional<Shop> shop = shopRepository.findById(id);
         if (shop.isPresent()) {
