@@ -20,4 +20,4 @@ logging:
     name: online-shop.log
   level:
 #    ERROR, WARN, INFO*default, DEBUG
-    com.onloneshop: DEBUG
+    com.onlineshop: DEBUG
