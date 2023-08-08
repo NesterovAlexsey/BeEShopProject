@@ -16,7 +16,7 @@ public class ShopService {
     @Autowired
     private ShopRepository shopRepository;
 
-    //tODO add loging
+    //Todo add loging
     public List<ShopDTO> findAllShops() {
         List<Shop> shops = shopRepository.findAll();
         List<ShopDTO> shopDTOList = new ArrayList<>();
@@ -26,6 +26,11 @@ public class ShopService {
 
     //Todo - check Shop name for same in adding
     public ShopDTO addShop(ShopDTO shopDTO) {
+        List<Shop> shops = shopRepository.findByShopNameIgnoreCase(shopDTO.getShopName());
+        if (!shops.isEmpty()) {
+            return null;
+        }
+
         Shop addShop = new Shop();
         addShop.setShopName(shopDTO.getShopName());
         addShop = shopRepository.save(addShop);
@@ -33,15 +38,21 @@ public class ShopService {
     }
 
     //Todo - check Shop name for same in update
-    public ShopDTO update(Integer id, ShopDTO shopDTO) {
+    public ShopServiceResponse update(Integer id, ShopDTO shopDTO) {
         Optional<Shop> shop = shopRepository.findById(id);
-        if (shop.isPresent()) {
-            Shop updshop = shop.get();
-            updshop.setShopName(shopDTO.getShopName());
-            updshop = shopRepository.save(updshop);
-            return ShopDTO.getInstance(updshop);
+        if (shop.isEmpty()) {
+            return new ShopServiceResponse(shopDTO, 404);
         }
-        return null;
+
+        List<Shop> shops = shopRepository.findByShopNameIgnoreCase(shopDTO.getShopName());
+        if (!shops.isEmpty()) {
+            return new ShopServiceResponse(shopDTO, 400);
+        }
+
+        Shop updshop = shop.get();
+        updshop.setShopName(shopDTO.getShopName());
+        updshop = shopRepository.save(updshop);
+        return new ShopServiceResponse(ShopDTO.getInstance(updshop), 200);
     }
 
     public ShopDTO deleteShop(Integer id) {

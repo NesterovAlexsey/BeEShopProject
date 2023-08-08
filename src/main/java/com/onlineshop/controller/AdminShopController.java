@@ -2,6 +2,7 @@ package com.onlineshop.controller;
 
 import com.onlineshop.controller.dto.ShopDTO;
 import com.onlineshop.service.ShopService;
+import com.onlineshop.service.ShopServiceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,17 +26,30 @@ public class AdminShopController {
     }
 
     @PostMapping("/add")
-    public ShopDTO addShop(@RequestBody ShopDTO shopDTO) {
-        return shopService.addShop(shopDTO);
-    }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<ShopDTO> updateShop(@RequestBody ShopDTO shopDTO, @PathVariable Integer id) {
-        ShopDTO shopDTO1 = shopService.update(id, shopDTO);
+    public ResponseEntity<ShopDTO> addShop(@RequestBody ShopDTO shopDTO) {
+        ShopDTO shopDTO1 = shopService.addShop(shopDTO);
         if (shopDTO1 == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(shopDTO1);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ShopDTO> updateShop(@RequestBody ShopDTO shopDTO, @PathVariable Integer id) {
+        ShopServiceResponse shopServiceResponse = shopService.update(id, shopDTO);
+        ResponseEntity<ShopDTO> result = null;
+        switch (shopServiceResponse.getResponseResult()) {
+            case 200:
+                result = ResponseEntity.ok(shopServiceResponse.getShopDTO());
+                break;
+            case 404:
+                result = ResponseEntity.notFound().build();
+                break;
+            case 400:
+                result = ResponseEntity.badRequest().build();
+                break;
+        }
+        return result;
     }
 
     @DeleteMapping("/delete/{id}")
