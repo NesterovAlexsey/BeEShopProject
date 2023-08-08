@@ -16,9 +16,6 @@ public class CountryServiceTest {
     @Autowired
     private CountryService countryService;
 
-    @Autowired
-    private CountryRepository countryRepository;
-
     @Test
     @Order(1)
     public void findAllTest() {
@@ -52,6 +49,23 @@ public class CountryServiceTest {
 
     @Test
     @Order(4)
+    public void updateTestNegativeIncorrectId() {
+        CountryDTO countryJapan = new CountryDTO(null, "Japan");
+        CountryDTO countryUpdated = countryService.update(15, countryJapan);
+
+        Assertions.assertNull(countryUpdated);
+    }
+
+    @Test
+    @Order(5)
+    public void deleteTestNegativeIncorrectId() {
+        CountryDTO countryDeleted = countryService.delete(10);
+
+        Assertions.assertNull(countryDeleted);
+    }
+
+    @Test
+    @Order(6)
     public void deleteTest() {
         CountryDTO countryDeleted = countryService.delete(3);
 
