@@ -17,10 +17,17 @@ public class CountryService {
 
     @Autowired
     private CountryRepository countryRepository;
-    public CountryDTO add(CountryDTO countryDTO) {
+    public CountryDTO add(CountryDTO country) {
+        // control: if this name exists
+        List<Country> countries = countryRepository.findByCountryNameIgnoreCase(country.getCountryName());
+        if (!countries.isEmpty()) {
+            log.error("Duplicate Name of Country: {}", country.getCountryName());
+            return null;
+        }
         Country newCountry = new Country();
-        newCountry.setCountryName(countryDTO.getCountryName());
+        newCountry.setCountryName(country.getCountryName());
         newCountry = countryRepository.save(newCountry);
+        log.info("Country {} successfully added.", country.getCountryName());
         return CountryDTO.getInstance(newCountry);
     }
 

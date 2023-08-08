@@ -22,6 +22,9 @@ public class AdminCountryController {
     @PostMapping("/add")
     public ResponseEntity<CountryDTO> addCountry(@RequestBody CountryDTO country) {
         CountryDTO countryDTO = countryService.add(country);
+        if (countryDTO == null) {
+            ResponseEntity.unprocessableEntity().build();
+        }
         return ResponseEntity.ok(countryDTO);
     }
 

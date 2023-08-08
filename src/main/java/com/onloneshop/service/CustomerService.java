@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 @Slf4j
+@Service
 public class CustomerService {
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -23,71 +24,55 @@ public class CustomerService {
     private CountryRepository countryRepository;
 
     public List<CustomerDTO> findAll() {
-        List<CustomerDTO> customersDTO = new ArrayList<>();
         List<Customer> customers = customerRepository.findAll();
-        customers.forEach(customer -> customersDTO.add(CustomerDTO.getInstance(customer)));
-        return customersDTO;
+        List<CustomerDTO> result = new ArrayList<>();
+        customers.forEach(customer -> result.add(CustomerDTO.getInstance(customer)));
+        return result;
     }
 
     public CustomerDTO add(CustomerDTO customerDTO) {
-        Customer customer = new Customer();
-        //find country
-        Integer countryID = customerDTO.getCountry().getCountryId();
-        log.debug("Find Country id with: {}", countryID);
-
-        Optional<Country> optCountry = countryRepository.findById(countryID);
-        //check if country present
-        if (optCountry.isEmpty()) {
-            log.error("Not found category categoryId: {}", countryID);
+        Customer newCustomer = newOrUpdateCustomer(new Customer(), customerDTO);
+        if (newCustomer == null) {
             return null;
         }
-
-        //add all parameters
-        customer.setCustomerName(customerDTO.getCustomerName());
-        customer.setCountry(optCountry.get());
-        customer.setAddress(customerDTO.getAddress());
-
-        customer = customerRepository.save(customer);
-
-        return CustomerDTO.getInstance(customer);
+        log.info("Customer {} successfully added.", customerDTO.getCustomerName());
+        return CustomerDTO.getInstance(newCustomer);
     }
 
     public CustomerDTO update(Integer id, CustomerDTO customerDTO) {
-        //find object, which we want to update
         Optional<Customer> optCustomer = customerRepository.findById(id);
-        if (optCustomer.isEmpty()){
-            return null;
+        if (optCustomer.isPresent()) {
+            Customer updCustomer = newOrUpdateCustomer(optCustomer.get(), customerDTO);
+            if (updCustomer == null) {
+                return null;
+            }
+            return CustomerDTO.getInstance(updCustomer);
         }
-        Customer customer = optCustomer.get();
+        log.error("Not found Customer {} customerId: {}", customerDTO.getCustomerName(), id);
+        return null;
+    }
 
-        //find country
-        Integer countryID = customerDTO.getCountry().getCountryId();
-        log.debug("Find Country id with: {}", countryID);
-
-        Optional<Country> optCountry = countryRepository.findById(countryID);
-        //check if country present
-        if (optCountry.isEmpty()) {
-            log.error("Not found category categoryId: {}", countryID);
-            return null;
-        }
-
-        //add all parameters
+    private Customer newOrUpdateCustomer(Customer customer, CustomerDTO customerDTO) {
         customer.setCustomerName(customerDTO.getCustomerName());
-        customer.setCountry(optCountry.get());
         customer.setAddress(customerDTO.getAddress());
-
-        customer = customerRepository.save(customer);
-
-        return CustomerDTO.getInstance(customer);
+        Integer countryId = customerDTO.getCountry().getCountryId();
+        Optional<Country> optCountry = countryRepository.findById(countryId);
+        if (!optCountry.isPresent()) {
+            log.error("Not found Country countryId: {}", countryId);
+            return null;
+        }
+        customer.setCountry(optCountry.get());
+        return customerRepository.save(customer);
     }
 
     public CustomerDTO delete(Integer id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        if (customer.isPresent()) {
-            Customer delCustomer = customer.get();
+        Optional<Customer> optCustomer = customerRepository.findById(id);
+        if (optCustomer.isPresent()) {
+            Customer delCustomer = optCustomer.get();
             customerRepository.delete(delCustomer);
             return CustomerDTO.getInstance(delCustomer);
         }
+        log.error("Not found Customer customerId: {}", id);
         return null;
     }
 }
