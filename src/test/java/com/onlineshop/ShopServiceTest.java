@@ -37,7 +37,7 @@ public class ShopServiceTest {
     @Order(3)
     public void updateShopPositiveTest() {
         ShopDTO secondShop = new ShopDTO(null, "Second Test Shop");
-        ShopDTO updateShop = shopService.update(1, secondShop);
+        ShopDTO updateShop = shopService.update(1, secondShop).getShopDTO();
 
         Assertions.assertEquals("Second Test Shop", updateShop.getShopName());
     }

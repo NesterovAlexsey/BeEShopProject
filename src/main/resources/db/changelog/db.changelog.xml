@@ -184,35 +184,35 @@ Ref: products_in_shop.shop_id > shops.shop_id
                                  referencedColumnNames="country_id"/>
     </changeSet>
 
-<!--    <changeSet id="#2" author="alex">-->
-<!--        <loadData tableName="countries"-->
-<!--                  separator=","-->
-<!--                  file="db/data/countries.csv">-->
-<!--        </loadData>-->
-<!--        <loadData tableName="categories"-->
-<!--                  separator=","-->
-<!--                  file="db/data/categories.csv">-->
-<!--        </loadData>-->
-<!--        <loadData tableName="suppliers"-->
-<!--                  separator=","-->
-<!--                  file="db/data/suppliers.csv">-->
-<!--        </loadData>-->
-<!--        <loadData tableName="products"-->
-<!--                  separator=","-->
-<!--                  file="db/data/products.csv">-->
-<!--        </loadData>-->
-<!--        <loadData tableName="shops"-->
-<!--                  separator=","-->
-<!--                  file="db/data/shops.csv">-->
-<!--        </loadData>-->
-<!--        <loadData tableName="products_in_shop"-->
-<!--                  separator=","-->
-<!--                  file="db/data/products_in_shop.csv">-->
-<!--        </loadData>-->
-<!--        <loadData tableName="customers"-->
-<!--                  separator=","-->
-<!--                  file="db/data/customers.csv">-->
-<!--        </loadData>-->
-<!--    </changeSet>-->
+    <changeSet id="#2" author="alex" context="!test">
+        <loadData tableName="countries"
+                  separator=","
+                  file="db/data/countries.csv">
+        </loadData>
+        <loadData tableName="categories"
+                  separator=","
+                  file="db/data/categories.csv">
+        </loadData>
+        <loadData tableName="suppliers"
+                  separator=","
+                  file="db/data/suppliers.csv">
+        </loadData>
+        <loadData tableName="products"
+                  separator=","
+                  file="db/data/products.csv">
+        </loadData>
+        <loadData tableName="shops"
+                  separator=","
+                  file="db/data/shops.csv">
+        </loadData>
+        <loadData tableName="products_in_shop"
+                  separator=","
+                  file="db/data/products_in_shop.csv">
+        </loadData>
+        <loadData tableName="customers"
+                  separator=","
+                  file="db/data/customers.csv">
+        </loadData>
+    </changeSet>
 
 </databaseChangeLog>

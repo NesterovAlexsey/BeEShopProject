@@ -24,7 +24,6 @@ public class ShopService {
         return shopDTOList;
     }
 
-    //Todo - check Shop name for same in adding
     public ShopDTO addShop(ShopDTO shopDTO) {
         List<Shop> shops = shopRepository.findByShopNameIgnoreCase(shopDTO.getShopName());
         if (!shops.isEmpty()) {
@@ -37,7 +36,6 @@ public class ShopService {
         return ShopDTO.getInstance(addShop);
     }
 
-    //Todo - check Shop name for same in update
     public ShopServiceResponse update(Integer id, ShopDTO shopDTO) {
         Optional<Shop> shop = shopRepository.findById(id);
         if (shop.isEmpty()) {
