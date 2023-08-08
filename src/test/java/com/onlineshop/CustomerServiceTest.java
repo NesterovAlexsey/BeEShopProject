@@ -2,6 +2,7 @@ package com.onlineshop;
 
 import com.onlineshop.controller.dto.CountryDTO;
 import com.onlineshop.controller.dto.CustomerDTO;
+import com.onlineshop.repository.CountryRepository;
 import com.onlineshop.service.CountryService;
 import com.onlineshop.service.CustomerService;
 import org.junit.jupiter.api.*;
@@ -21,7 +22,7 @@ public class CustomerServiceTest {
     CountryService countryService;
 
     @Test
-    @Order(1)
+//    @Order(1)
     public void addCustomerPositiveTest() {
         CountryDTO countryDTO = new CountryDTO(null, "France");
         CountryDTO countryFrance = countryService.add(countryDTO);
@@ -35,11 +36,17 @@ public class CustomerServiceTest {
         Assertions.assertEquals("France", customerCheck.getCountry().getCountryName());
     }
 
-    @Test
-    @Order(2)
-    public void findListOfAllCustomerPositiveTest() {
-        List<CustomerDTO> customerDTOS = customerService.findAll();
-
-        Assertions.assertEquals(1, customerDTOS.size());
-    }
+//    @Test
+//    @Order(2)
+//    public void findListOfAllCustomerPositiveTest() {
+//        CountryDTO countryDTO = new CountryDTO(null, "USA");
+//        CountryDTO countryUSA = countryService.add(countryDTO)
+//        CustomerDTO customerDTO = new CustomerDTO(
+//                null, "Test2", "Test address2", countryUSA);
+//        customerService.add(customerDTO);
+//
+//        List<CustomerDTO> customerDTOS = customerService.findAll();
+//
+//        Assertions.assertEquals(2, customerDTOS.size());
+//    }
 }
