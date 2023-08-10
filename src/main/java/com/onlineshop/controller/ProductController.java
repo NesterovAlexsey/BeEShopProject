@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Open operation for all users
  */
-//Todo
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {

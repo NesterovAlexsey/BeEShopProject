@@ -31,7 +31,7 @@ public class OrderService {
     public OrderDTO createOrder(Integer customerId, Integer shopId, Integer productId) {
         Optional<Customer> customer = customerRepository.findById(customerId);
         Optional<Shop> shop = shopRepository.findById(shopId);
-        //Todo check if customer exists
+        //Todo check if customer and shop exists
         Order order = new Order();
         order.setCustomer(customer.get());
         order.setShop(shop.get());
@@ -47,7 +47,7 @@ public class OrderService {
         orderDetail.setOrder(order);
         orderDetail.setProduct(product.get());
         orderDetail.setQuantity(1);
-        orderDetail = orderDetailRepository.save(orderDetail);
+        orderDetailRepository.save(orderDetail);
 
         return OrderDTO.getInstance(order);
     }
@@ -75,7 +75,7 @@ public class OrderService {
             orderDetail.setOrder(order.get());
             orderDetail.setProduct(product.get());
             orderDetail.setQuantity(1);
-            orderDetail = orderDetailRepository.save(orderDetail);
+            orderDetailRepository.save(orderDetail);
         }
 
         return OrderDTO.getInstance(order.get());
@@ -113,7 +113,7 @@ public class OrderService {
         //Todo check if order state new
 
         Order order = optOrder.get();
-        order.setState(OrderState.WAITING_PAYMENT);
+        order.setState(OrderState.SENT);
         order = orderRepository.save(order);
 
         return OrderDTO.getInstance(order);
