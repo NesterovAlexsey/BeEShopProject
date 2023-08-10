@@ -3,7 +3,10 @@ package com.onlineshop.controller;
 import com.onlineshop.controller.dto.OrderDTO;
 import com.onlineshop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Operation with orders:
@@ -19,11 +22,18 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    //Todo - delete get endpoint before production
+    @GetMapping("")
+    public List<OrderDTO> getAllOrders() {
+        return orderService.getAllOrders();
+    }
+
     @PostMapping("/create/{customerId}/{shopId}/{productId}")
-    public OrderDTO createOrder(@PathVariable Integer customerId,
-                                @PathVariable Integer shopId,
-                                @PathVariable Integer productId) {
-        return orderService.createOrder(customerId, shopId, productId);
+    public ResponseEntity<OrderDTO> createOrder(@PathVariable Integer customerId,
+                                                @PathVariable Integer shopId,
+                                                @PathVariable Integer productId) {
+        OrderDTO orderDTO = orderService.createOrder(customerId, shopId, productId);
+        return orderDTO.getStatus();
     }
 
     @PutMapping("/add/{orderId}/{productId}")

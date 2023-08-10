@@ -1,12 +1,15 @@
 package com.onlineshop.service;
 
 import com.onlineshop.controller.dto.OrderDTO;
+import com.onlineshop.controller.dto.ShopDTO;
 import com.onlineshop.domain.*;
 import com.onlineshop.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +33,32 @@ public class OrderService {
 
     public OrderDTO createOrder(Integer customerId, Integer shopId, Integer productId) {
         Optional<Customer> customer = customerRepository.findById(customerId);
+        if (customer.isEmpty()) {
+            OrderDTO incorrectCustomerId = new OrderDTO();
+            incorrectCustomerId.setStatus(ResponseEntity.notFound()
+                    .header("Warning", "customer Id " + customerId + " not Found")
+                    .build());
+            return incorrectCustomerId;
+        }
+
         Optional<Shop> shop = shopRepository.findById(shopId);
-        //Todo check if customer and shop exists
+        if (shop.isEmpty()) {
+            OrderDTO incorrectShopId = new OrderDTO();
+            incorrectShopId.setStatus(ResponseEntity.notFound()
+                    .header("Warning", "Shop Id " + shopId + " not Found")
+                    .build());
+            return incorrectShopId;
+        }
+
+        Optional<Product> product = productRepository.findById(productId);
+        if (product.isEmpty()) {
+            OrderDTO incorrectProductId = new OrderDTO();
+            incorrectProductId.setStatus(ResponseEntity.notFound()
+                    .header("Warning", "Product Id " + productId + " not Found")
+                    .build());
+            return incorrectProductId;
+        }
+
         Order order = new Order();
         order.setCustomer(customer.get());
         order.setShop(shop.get());
@@ -39,17 +66,15 @@ public class OrderService {
         order.setState(OrderState.NEW);
         order = orderRepository.save(order);
 
-
-
-        Optional<Product> product = productRepository.findById(productId);
-        //Todo check if product exists
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrder(order);
         orderDetail.setProduct(product.get());
         orderDetail.setQuantity(1);
         orderDetailRepository.save(orderDetail);
 
-        return OrderDTO.getInstance(order);
+        OrderDTO result = OrderDTO.getInstance(order);
+        result.setStatus(ResponseEntity.ok().build());
+        return result;
     }
 
     public OrderDTO addProduct(Integer orderId, Integer productId) {
@@ -117,5 +142,12 @@ public class OrderService {
         order = orderRepository.save(order);
 
         return OrderDTO.getInstance(order);
+    }
+
+    public List<OrderDTO> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        List<OrderDTO> ordersDTO = new ArrayList<>();
+        orders.forEach(order -> ordersDTO.add(OrderDTO.getInstance(order)));
+        return ordersDTO;
     }
 }
