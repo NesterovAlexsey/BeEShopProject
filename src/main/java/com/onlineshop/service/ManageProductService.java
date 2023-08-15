@@ -28,16 +28,31 @@ public class ManageProductService {
     @Autowired
     private OrderDetailRepository orderDetailRepository;
 
+    //Method will add products to the shop with given id
     public ProductInShopDTO productToShop(Integer shopId, ProductInShopDTO products) {
-        //todo homework - check possibility to do in one line or strim / or get all id from base
-        //todo code refactor
+        //todo create class with bringing back error message
+        //todo separate all the not useful or same code parts
+        //todo create repository in control for documentation
+        //todo the logic checking of income parameters
+        //todo added the validation of income data
+
+        //with first step, we try to find in database models shop by id and check, if we will have the correct Shop
         Optional<Shop> optionalShop = shopRepository.findById(shopId);
-        //ToDo check if shop exists or not null
+        if(optionalShop.isEmpty()){
+            return null;
+        }
+
+        //then we try to get list of products in that shop using
         List<ProductInShop> productsInShop = productInShopRepository.findByShop(optionalShop.get());
+        if(productsInShop.isEmpty()) {
+            return null;
+        }
 
         for (ProductInShopDTO.ProductItem productItem : products.getProductItems()) {
             Optional<Product> optProduct = productRepository.findById(productItem.getProductId());
-            //todo if product exist
+            if (optProduct.isEmpty()) {
+                return null;
+            }
 
             boolean isProductFound = false;
             for (ProductInShop productInShop : productsInShop) {
@@ -48,6 +63,7 @@ public class ManageProductService {
                     break;
                 }
             }
+
             if (!isProductFound) {
                 ProductInShop productInShop =new ProductInShop();
                 productInShop.setShop(optionalShop.get());
@@ -56,7 +72,9 @@ public class ManageProductService {
                 productInShop = productInShopRepository.save(productInShop);
                 productsInShop.add(productInShop);
             }
+
         }
+
         productInShopRepository.saveAll(productsInShop);
         return products;
     }
