@@ -1,8 +1,6 @@
 package com.onlineshop.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +8,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Supplier {
 
     @Id
@@ -17,6 +17,7 @@ public class Supplier {
     private Integer supplierId;
 
     private String supplierName;
+
     private String address;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Country.class)
