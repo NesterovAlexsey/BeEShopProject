@@ -1,6 +1,6 @@
 package com.onlineshop.service;
 
-import com.onlineshop.controller.dto.SupplierDTO;
+import com.onlineshop.dto.SupplierDTO;
 import com.onlineshop.domain.Country;
 import com.onlineshop.domain.Supplier;
 import com.onlineshop.repository.CountryRepository;

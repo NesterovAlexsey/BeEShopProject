@@ -1,15 +1,12 @@
 package com.onlineshop;
 
-import com.onlineshop.controller.dto.CountryDTO;
-import com.onlineshop.controller.dto.CustomerDTO;
-import com.onlineshop.repository.CountryRepository;
+import com.onlineshop.dto.CountryDTO;
+import com.onlineshop.dto.CustomerDTO;
 import com.onlineshop.service.CountryService;
 import com.onlineshop.service.CustomerService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

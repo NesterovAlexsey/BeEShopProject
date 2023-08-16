@@ -1,6 +1,6 @@
-package com.onlineshop.service;
+package com.onlineshop.service.impl;
 
-import com.onlineshop.controller.dto.CategoryDTO;
+import com.onlineshop.dto.CategoryDTO;
 import com.onlineshop.domain.Category;
 import com.onlineshop.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,11 @@
-package com.onlineshop.controller.dto;
+package com.onlineshop.dto;
 
 import com.onlineshop.domain.Category;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 @AllArgsConstructor
-@Getter
+@Builder
+@Data
 public class CategoryDTO {
     private final Integer categoryId;
     private final String categoryName;

@@ -1,6 +1,6 @@
 package com.onlineshop.controller;
 
-import com.onlineshop.controller.dto.OrderDTO;
+import com.onlineshop.dto.OrderDTO;
 import com.onlineshop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

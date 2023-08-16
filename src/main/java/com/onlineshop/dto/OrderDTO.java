@@ -1,4 +1,4 @@
-package com.onlineshop.controller.dto;
+package com.onlineshop.dto;
 
 import com.onlineshop.domain.Order;
 import com.onlineshop.domain.OrderState;

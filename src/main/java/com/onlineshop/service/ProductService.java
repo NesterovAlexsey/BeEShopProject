@@ -1,7 +1,7 @@
 package com.onlineshop.service;
 
-import com.onlineshop.controller.dto.ProductDTO;
-import com.onlineshop.controller.dto.ProductsDTO;
+import com.onlineshop.dto.ProductDTO;
+import com.onlineshop.dto.ProductsDTO;
 import com.onlineshop.domain.Category;
 import com.onlineshop.domain.Product;
 import com.onlineshop.domain.Supplier;

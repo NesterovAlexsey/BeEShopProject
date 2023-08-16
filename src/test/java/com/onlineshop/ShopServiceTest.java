@@ -1,7 +1,6 @@
 package com.onlineshop;
 
-import com.onlineshop.controller.dto.ShopDTO;
-import com.onlineshop.repository.ShopRepository;
+import com.onlineshop.dto.ShopDTO;
 import com.onlineshop.service.ShopService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

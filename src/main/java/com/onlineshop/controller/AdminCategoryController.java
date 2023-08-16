@@ -1,21 +1,24 @@
 package com.onlineshop.controller;
 
-import com.onlineshop.controller.dto.CategoryDTO;
-import com.onlineshop.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.onlineshop.controller.api.AdminCategoryControllerAPI;
+import com.onlineshop.dto.CategoryDTO;
+import com.onlineshop.service.impl.CategoryService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/admin/category")
-public class AdminCategoryController {
-    @Autowired
-    private CategoryService categoryService;
 
-    @GetMapping("/all")
-    public List<CategoryDTO> findAllCategory() {
+@RestController
+@RequiredArgsConstructor
+public class AdminCategoryController implements AdminCategoryControllerAPI {
+
+    private final CategoryService categoryService;
+
+    @Override
+    public List<CategoryDTO> findAllCategory() { //видео марселя
         return categoryService.findAll();
     }
 

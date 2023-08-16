@@ -1,6 +1,6 @@
 package com.onlineshop.controller;
 
-import com.onlineshop.controller.dto.CountryDTO;
+import com.onlineshop.dto.CountryDTO;
 import com.onlineshop.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

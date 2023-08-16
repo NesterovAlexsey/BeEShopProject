@@ -1,6 +1,6 @@
 package com.onlineshop.service;
 
-import com.onlineshop.controller.dto.CountryDTO;
+import com.onlineshop.dto.CountryDTO;
 import com.onlineshop.domain.Country;
 import com.onlineshop.repository.CountryRepository;
 import lombok.extern.slf4j.Slf4j;

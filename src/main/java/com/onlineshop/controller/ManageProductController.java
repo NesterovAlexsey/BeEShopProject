@@ -1,7 +1,7 @@
 package com.onlineshop.controller;
 
-import com.onlineshop.controller.dto.OrderDTO;
-import com.onlineshop.controller.dto.ProductInShopDTO;
+import com.onlineshop.dto.OrderDTO;
+import com.onlineshop.dto.ProductInShopDTO;
 import com.onlineshop.domain.OrderState;
 import com.onlineshop.service.ManageProductService;
 import org.springframework.beans.factory.annotation.Autowired;

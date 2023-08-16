@@ -1,4 +1,4 @@
-package com.onlineshop.controller.dto;
+package com.onlineshop.dto;
 
 import com.onlineshop.domain.Supplier;
 import lombok.AllArgsConstructor;

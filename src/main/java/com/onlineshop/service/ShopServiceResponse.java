@@ -1,6 +1,6 @@
 package com.onlineshop.service;
 
-import com.onlineshop.controller.dto.ShopDTO;
+import com.onlineshop.dto.ShopDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
